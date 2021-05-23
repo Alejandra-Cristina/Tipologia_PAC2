@@ -19,4 +19,6 @@ mean.n <- as.vector(sapply( doc_csv[,res ],mean,na.rm=TRUE ) )
 std.n <- as.vector(sapply(doc_csv[,res ],sd, na.rm=TRUE))
 median.n <- as.vector(sapply(doc_csv[,res],median, na.rm=TRUE))
 
+plot(doc_csv[c("sex","smoker")],xlab="Fidelidad",ylab="Experiencia")
 
+barplot(prop.table(table(doc_csv$sex,doc_csv$smoker)), col=c("darkblue","red"))
