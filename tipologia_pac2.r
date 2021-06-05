@@ -10,23 +10,31 @@ kable(data.frame(variables=names(res),clase=as.vector(res)))
 
 
 table(doc_csv$sex)
+table(doc_csv$bmi )
+table(doc_csv$children)
+table(doc_csv$region)
+table(doc_csv$charges)
 table(doc_csv$smoker)
 
+colSums(is.na(doc_csv))
+colSums(doc_csv =="")
 
 
 
 res <- sapply(doc_csv,class)
 kable(data.frame(variables=names(res),clase=as.vector(res)))
-res <- which(res=="numeric")
+res <- which(res=="integer" | res == "numeric")
 
-par(mfrow=c(1,2))
-for(i in 1:2){
+par(mfrow=c(1,4))
+for(i in 1:4){
 	boxplot(doc_csv[,res[i]],main=names(doc_csv)[res[i]],col="gray")
 }
 
 clus <- doc_csv[,c("age","sex","bmi","children","smoker","region","charges")]
 clus
-/* ***************************************************** */
+
+#/* ***************************************************** */
+
 mean.n <- as.vector(sapply( doc_csv[,res ],mean,na.rm=TRUE ) )
 std.n <- as.vector(sapply(doc_csv[,res ],sd, na.rm=TRUE))
 median.n <- as.vector(sapply(doc_csv[,res],median, na.rm=TRUE))
@@ -45,14 +53,14 @@ kable(data.frame(variables= names(doc_csv)[res],
                  IQR = IQR.n,
                  MAD = mad.n
                  ),
-      digits=2, caption="Estimaciones de Dispersión")
-/* ***************************************************** */
+      digits=2, caption="Estimaciones de Dispersion")
+#/* ***************************************************** */
 
 plot(doc_csv[c("sex","smoker")],xlab="Fidelidad",ylab="Experiencia")
 
 barplot(prop.table(table(doc_csv$sex,doc_csv$smoker)), col=c("darkblue","red"))
 
-/* ***************************************************** */
+#/* ***************************************************** */
 qqnorm( doc_csv$charges )
 qqline( doc_csv$charges )
 shapiro.test (doc_csv$charges)
@@ -69,7 +77,8 @@ qqnorm( MujeresIni )
 qqline( MujeresIni )
 shapiro.test ( MujeresIni ) # contraste de normalidad
 var.test( HombresIni, MujeresIni )
-/* ***************************************************** */
+
+#/* ***************************************************** */
 
 smokerYes <- doc_csv$charges[doc_csv$smoker == "yes"]
 smokerNo <- doc_csv$charges[doc_csv$smoker == "no"]
@@ -81,8 +90,10 @@ qqline( smokerNo )
 shapiro.test ( smokerNo ) # contraste de normalidad
 var.test( smokerYes, smokerNo )
 
-/***********************************************************/
-regresión lineal
+
+#/***********************************************************/
+#regresion lineal
+
 pairs(doc_csv)
 
 regresion <- lm(doc_csv$charges, doc_csv$smoker)
