@@ -138,6 +138,14 @@ var.test( smokerYes, smokerNo )
 
 pairs(doc_csv)
 
+
+#********************************************************#
+#Correlaciones
+library(arules)
+trans <- as(doc_csv, "transactions")
+rules <- apriori(trans,parameter = list(support = 0.01, confidence = 0.5))
+inspect(head(sort(rules, by = "confidence"), 3))
+
 #********************************************************#
 #Modelo de regresión lineal múltiple (regresores cuantitativos)
 
@@ -158,3 +166,12 @@ summary(Model.1.2)
 freqy <- table(doc_csv$smoker)
 barplot(freqy, xlab="Smoker", ylab="Charges")
 barplot(prop.table(table(doc_csv$smoker,doc_csv$sex)), col=c("darkblue","red"))
+
+#
+pointsSmoker <- doc_csv$charges[doc_csv$smoker == "yes"]
+pointsNoSmoker <- doc_csv$charges[doc_csv$smoker == "no"]
+plot(pointsNoSmoker)
+points(pointsSmoker)
+
+boxplot(pointsNoSmoker, main= charges of non smokers )
+boxplot(pointsSmoker, main = charges of smokers )
