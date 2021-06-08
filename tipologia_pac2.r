@@ -62,9 +62,11 @@ barplot(prop.table(table(doc_csv$sex,doc_csv$smoker)), col=c("darkblue","red"))
 
 #/* ***************************************************** */
 
+clus2 <- data.frame(clus)
 clus2[,c("age")] <- (clus$age-mean(clus$age))/sd(clus$age)
 clus2[,c("children")] <- (clus$children-mean(clus$children))/sd(clus$children)
 str(clus2)
+write.csv(clus2,"INSURANCE_MODIFIED.csv")
 plot(clus2[c("smoker","charges")], xlab="Fidelidad",ylab="Experiencia")
 xk <- clus2[,c("age","bmi","children","charges")]
 plot(xk[c("age","charges")], xlab="Fidelidad",ylab="Experiencia")
@@ -173,5 +175,5 @@ pointsNoSmoker <- doc_csv$charges[doc_csv$smoker == "no"]
 plot(pointsNoSmoker)
 points(pointsSmoker)
 
-boxplot(pointsNoSmoker, main= charges of non smokers )
-boxplot(pointsSmoker, main = charges of smokers )
+boxplot(pointsNoSmoker, main= 'charges of non smokers' )
+boxplot(pointsSmoker, main = 'charges of smokers' )
