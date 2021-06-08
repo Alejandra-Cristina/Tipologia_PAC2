@@ -6,6 +6,7 @@ perteneciente al Máster en Ciencia de Datos de la Universitat Oberta de Catalun
 La actividad ha sido realizada por Alejandra Cristina Marrero Suárez y Luis Miguel Moreno Lopez.
 ### Ficheros del código fuente
   * El código de la practica se encuentra en el fichero tipologia_pac2.r
+  * El pdf con la memoria de la práctica.
   * Archivo llamado insurance.csv donde se extraen los datos.
 ### Recursos
   * https://www.kaggle.com/mirichoi0218/insurance?select=insurance.csv
